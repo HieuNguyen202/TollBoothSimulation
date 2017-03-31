@@ -13,11 +13,11 @@ public class ManuTollBooth extends TollBooth {
         updateShortestLine();
     }
     public void updateShortestLine() {
-        if (getLength() < shortestBooth.getLength()) {
+        if (length() < shortestBooth.length()) {
             shortestBooth = this;
         }
     }
-    public String tosString() {
+    public String toString() {
         return "";
     }
     

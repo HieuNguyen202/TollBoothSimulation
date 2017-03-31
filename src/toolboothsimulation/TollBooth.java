@@ -14,7 +14,7 @@ public abstract class TollBooth {
         doneLine=new DoneVihicles();
         maxLength=0;
     }
-    public int getLength() {
+    public int length() {
         return line.length();
     }
     public void arrive(Vehicle car) {
@@ -29,11 +29,11 @@ public abstract class TollBooth {
         return maxLength;
     }
     private void updateMaxLength() {
-        if (getLength()>maxLength) {
-            maxLength=getLength(); 
+        if (length()>maxLength) {
+            maxLength=length(); 
         }
     }
     public String toString() {
-        return "Toll Booth currently has "+getLength()+"vehicles in line and served "+doneLine.length()+" vehicles.";
+        return "Toll Booth currently has "+length()+"vehicles in line and served "+doneLine.length()+" vehicles.";
     }  
 }

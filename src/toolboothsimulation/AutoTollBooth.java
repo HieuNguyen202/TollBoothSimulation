@@ -13,7 +13,7 @@ public class AutoTollBooth extends TollBooth {
         updateShortestLine();
     }
     public void updateShortestLine() {
-        if (getLength() < shortestBooth.getLength()) {
+        if (length() < shortestBooth.length()) {
             shortestBooth = this;
         }
     }
