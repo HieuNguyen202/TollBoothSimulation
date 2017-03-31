@@ -8,7 +8,6 @@ public abstract class TollBooth {
     private TollBoothLine line;
     private DoneVihicles doneLine;
     private int maxLength;
-
     public TollBooth()
     {
         line=new TollBoothLine();
@@ -16,14 +15,14 @@ public abstract class TollBooth {
         maxLength=0;
     }
     public int getLength() {
-        return line.getLength();
+        return line.length();
     }
     public void arrive(Vehicle car) {
         line.add(car);
         updateMaxLength();
     }
     public void leave(double leaveTime) {
-        line.getFirstVehicle().setLeaveTime(leaveTime);
+        line.getFirst().setLeaveTime(leaveTime);
         line.transferTo(doneLine);
     }
     public int getMaxLength() {
@@ -35,7 +34,6 @@ public abstract class TollBooth {
         }
     }
     public String toString() {
-        return "Toll Booth currently has "+getLength()+"vehicles in line and served "+doneLine.getLength()+" vehicles.";
-    }
-    
+        return "Toll Booth currently has "+getLength()+"vehicles in line and served "+doneLine.length()+" vehicles.";
+    }  
 }

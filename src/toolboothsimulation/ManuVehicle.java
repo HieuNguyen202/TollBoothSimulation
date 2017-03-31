@@ -15,7 +15,6 @@ public class ManuVehicle extends Vehicle {
         }
     }
     public int getNumWheel() { return numWheel;}
-    
     public double getWaitTime() {return super.getWaitTime()+numWheel*PER_WHEEL_DELAY;}
     public String toString() {return "Manual Vehicle - "+super.toString()+" Number of Wheels: "+getNumWheel();}
 }
