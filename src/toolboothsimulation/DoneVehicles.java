@@ -3,7 +3,7 @@ package toolboothsimulation;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-public class DoneVihicles extends TollBoothLine {
+public class DoneVehicles extends TollBoothLine {
 
     public double getMaxWait() {
         double maxWait = 0;

@@ -6,12 +6,12 @@ import java.util.List;
 
 public abstract class TollBooth {
     private TollBoothLine line;
-    private DoneVihicles doneLine;
+    private DoneVehicles doneLine;
     private int maxLength;
     public TollBooth()
     {
         line=new TollBoothLine();
-        doneLine=new DoneVihicles();
+        doneLine=new DoneVehicles();
         maxLength=0;
     }
     public int length() {
