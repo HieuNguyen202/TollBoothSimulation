@@ -12,4 +12,14 @@ public class TollBoothLine extends LinkedList<Vehicle> {
         otherBoothLine.addLast(this.getFirst());
         this.removeFirst();
     }
+    public String toString()
+    {
+        String output="";
+        ListIterator<Vehicle> iterator = listIterator();
+        while (iterator.hasNext()) {
+            Vehicle next = iterator.next();
+            output+=next.toString()+"\n";
+        }
+        return output;
+    }
 }
