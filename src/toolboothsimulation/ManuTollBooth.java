@@ -4,6 +4,7 @@ public class ManuTollBooth extends TollBooth {
     private static ManuTollBooth shortestBooth; //the manubooth that has the shortest line.
     public ManuTollBooth() {
         super();
+        updateShortestLine();
     }
     public static ManuTollBooth getShortestLine() {
         return shortestBooth;
@@ -13,12 +14,15 @@ public class ManuTollBooth extends TollBooth {
         updateShortestLine();
     }
     public void updateShortestLine() {
-        if (length() < shortestBooth.length()) {
+        if (shortestBooth==null) {
+            shortestBooth=this;
+        }
+        else if (length() < shortestBooth.length()) {
             shortestBooth = this;
         }
     }
     public String toString() {
-        return "";
+        return "AutoTollBooth "+super.toString();
     }
     
 }

@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class TollBooth {
+public class TollBooth {
     private TollBoothLine line;
     private DoneVehicles doneLine;
     private int maxLength;
-    public TollBooth()
-    {
+    public TollBooth(){
         line=new TollBoothLine();
         doneLine=new DoneVehicles();
         maxLength=0;
@@ -33,7 +32,13 @@ public abstract class TollBooth {
             maxLength=length(); 
         }
     }
+    public double getMaxWait(){
+    return doneLine.getMaxWait();
+    }
+    public double getAverageWait(){
+    return doneLine.getAverageWait();
+    }
     public String toString() {
-        return "Toll Booth currently has "+length()+"vehicles in line and served "+doneLine.length()+" vehicles.";
-    }  
+        return "Toll Booth currently has "+length()+" vehicles in its line and served "+doneLine.length()+" vehicles.";
+    }
 }
