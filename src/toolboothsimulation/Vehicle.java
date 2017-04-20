@@ -21,5 +21,5 @@ package toolboothsimulation;
          }
      }
      public String toString() {return "Arival Time: "+getArivalTime()+" Leave Time: "+getLeaveTime();}
-     
+     public abstract double getDelayTime();
 }
