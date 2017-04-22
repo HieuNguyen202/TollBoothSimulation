@@ -2,12 +2,14 @@ package toolboothsimulation;
 
 import java.util.*;
 import java.io.*;
+import static toolboothsimulation.TollBoothTest.autoTollBooths;
+import static toolboothsimulation.TollBoothTest.manuTollBooths;
 
 public class ToolBoothSimulation {
     public static int numManu=1;
     public static int numAuto=5;
-    public static TollBooth[] aTollBooths = new TollBooth[numAuto];
-    public static TollBooth[] mTollBooths = new TollBooth[numManu];
+    public static TollBooth[] autoTollBooths = new TollBooth[numAuto];
+    public static TollBooth[] manuTollBooths = new TollBooth[numManu];
     public static TollBoothLine overflowVehicles = new TollBoothLine();
     public static TollBoothLine allVehicles = new TollBoothLine();
     
@@ -17,10 +19,10 @@ public class ToolBoothSimulation {
         
         //create TollBooth arrays
         for (int i = 0; i < numAuto; i++) {
-            aTollBooths[i]=new TollBooth();
+            autoTollBooths[i]=new TollBooth();
         }
         for (int i = 0; i < numManu; i++) {
-            mTollBooths[i]=new TollBooth();
+            manuTollBooths[i]=new TollBooth();
         }
         
         //Input from file
@@ -61,39 +63,47 @@ public class ToolBoothSimulation {
             while (allVehicles.length()>0 && allVehicles.getFirst().getArivalTime()==clock)// two or more cars can arrive at the same time
             {
                 if (allVehicles.getFirst() instanceof AutoVehicle) {   
-                    arrive(aTollBooths,allVehicles.getFirst());
+                    arrive(autoTollBooths,allVehicles.getFirst());
                 }
                 else{//Assuming there are only two types of vehicles.
-                    arrive(mTollBooths,allVehicles.getFirst());
+                    arrive(manuTollBooths,allVehicles.getFirst());
                 }
                 allVehicles.removeFirst();
             }
             
             //cars leave
-            leave(aTollBooths,clock);
-            leave(mTollBooths,clock);
+            leave(autoTollBooths,clock);
+            leave(manuTollBooths,clock);
+            
+            System.out.println("Clock: "+ clock);
+            for (int i = 0; i < autoTollBooths.length; i++) {
+                System.out.println("Auto "+ (i+1) +" "+autoTollBooths[i]);
+            }
+            for (int i = 0; i < manuTollBooths.length; i++) {
+                System.out.println("Manu "+ (i+1) +" "+manuTollBooths[i]);
+            }
+            
             clock++;
         }
-        
         //Output statistic
         double sumOfManuAverages=0;
         double sumOfAutoAverages=0;
         double maxManuWait=0;
         double maxAutoWait=0;
 
-        for (int i = 0; i < aTollBooths.length; i++) {
-            System.out.println("Auto "+i+" maxLength " + i + ": " + aTollBooths[i].getMaxLength()); //Max length
-            sumOfAutoAverages+=aTollBooths[i].getAverageWait(); //sumOfAutoAverages
-            if (maxAutoWait<aTollBooths[i].getMaxWait()) {
-                maxAutoWait=aTollBooths[i].getMaxWait(); //maxAutoWait
+        for (int i = 0; i < autoTollBooths.length; i++) {
+            System.out.println("Auto "+i+" maxLength " + i + ": " + autoTollBooths[i].getMaxLength()); //Max length
+            sumOfAutoAverages+=autoTollBooths[i].getAverageWait(); //sumOfAutoAverages
+            if (maxAutoWait<autoTollBooths[i].getMaxWait()) {
+                maxAutoWait=autoTollBooths[i].getMaxWait(); //maxAutoWait
             }
         }
         
-        for (int i = 0; i < mTollBooths.length; i++) {
-            System.out.println("Manu "+i+" maxLength " + i + ": " + mTollBooths[i].getMaxLength());//Max length
-            sumOfManuAverages+=mTollBooths[i].getAverageWait(); //sumOfManuAverages
-            if (maxManuWait<mTollBooths[i].getMaxWait()) {
-                maxManuWait=mTollBooths[i].getMaxWait(); //maxManuWait
+        for (int i = 0; i < manuTollBooths.length; i++) {
+            System.out.println("Manu "+i+" maxLength " + i + ": " + manuTollBooths[i].getMaxLength());//Max length
+            sumOfManuAverages+=manuTollBooths[i].getAverageWait(); //sumOfManuAverages
+            if (maxManuWait<manuTollBooths[i].getMaxWait()) {
+                maxManuWait=manuTollBooths[i].getMaxWait(); //maxManuWait
             }
         }
         
