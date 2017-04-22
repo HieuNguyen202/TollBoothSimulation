@@ -92,7 +92,7 @@ public class ToolBoothSimulation {
         double maxAutoWait=0;
 
         for (int i = 0; i < autoTollBooths.length; i++) {
-            System.out.println("Auto "+i+" maxLength " + i + ": " + autoTollBooths[i].getMaxLength()); //Max length
+            System.out.println("Auto "+(i+1)+" maxLength: " + autoTollBooths[i].getMaxLength()); //Max length
             sumOfAutoAverages+=autoTollBooths[i].getAverageWait(); //sumOfAutoAverages
             if (maxAutoWait<autoTollBooths[i].getMaxWait()) {
                 maxAutoWait=autoTollBooths[i].getMaxWait(); //maxAutoWait
@@ -100,7 +100,7 @@ public class ToolBoothSimulation {
         }
         
         for (int i = 0; i < manuTollBooths.length; i++) {
-            System.out.println("Manu "+i+" maxLength " + i + ": " + manuTollBooths[i].getMaxLength());//Max length
+            System.out.println("Manu "+(i+1)+" maxLength: " + manuTollBooths[i].getMaxLength());//Max length
             sumOfManuAverages+=manuTollBooths[i].getAverageWait(); //sumOfManuAverages
             if (maxManuWait<manuTollBooths[i].getMaxWait()) {
                 maxManuWait=manuTollBooths[i].getMaxWait(); //maxManuWait
