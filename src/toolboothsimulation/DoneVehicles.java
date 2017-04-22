@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 
 public class DoneVehicles extends TollBoothLine {
-
+//OUTPUT: Max wait time of all vehicles in this list.
     public double getMaxWait() {
         double maxWait = 0;
         ListIterator<Vehicle> iterator = listIterator();
@@ -16,7 +16,7 @@ public class DoneVehicles extends TollBoothLine {
         }
         return maxWait;
     }
-
+//OUTPUT: Average wait time of all vehicles in this list.
     public double getAverageWait() {
         double total = 0;
         int count = 0;
@@ -26,12 +26,7 @@ public class DoneVehicles extends TollBoothLine {
             total += next.getWaitTime();
             count++;
         }
-        if (count > 0) {
-            return total / count;
-        } else {
-            return 0;
-        }
-
+        if (count > 0) return total / count;
+        else return 0;
     }
-
 }
