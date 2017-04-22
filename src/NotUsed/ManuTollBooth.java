@@ -1,13 +1,16 @@
-package toolboothsimulation;
+package NotUsed;
+//testing github
 
-public class AutoTollBooth extends TollBooth {
-    private static AutoTollBooth shortestBooth; //the autobooth that has the shortest line.
-    public static AutoTollBooth getShortestLine() {
-        return shortestBooth;
-    }
-    public AutoTollBooth() {
+import toolboothsimulation.TollBooth;
+
+public class ManuTollBooth extends TollBooth {
+    private static ManuTollBooth shortestBooth; //the manubooth that has the shortest line.
+    public ManuTollBooth() {
         super();
         updateShortestLine();
+    }
+    public static ManuTollBooth getShortestLine() {
+        return shortestBooth;
     }
     public void leave(double leaveTime) {
         super.leave(leaveTime);
