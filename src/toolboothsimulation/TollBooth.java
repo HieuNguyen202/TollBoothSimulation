@@ -7,6 +7,7 @@ import java.util.List;
 public class TollBooth {
 
     private TollBoothLine line;
+    private char type;
     private DoneVehicles doneLine;
     private int maxLength;
     private double timeUntilAvailable = 0.0;
@@ -16,6 +17,17 @@ public class TollBooth {
         doneLine = new DoneVehicles();
         maxLength = 0;
     }
+    public char getType()
+    {
+        return type;
+    }
+    public void setType(char type)
+    {
+        if (type=='A'||type=='M') {
+            this.type=type;
+        }
+    }
+    
     //WhatItDoes: Reduce timeUntilAvailable by one.   
     public void tick() {
         timeUntilAvailable--; //it's ok to be negative
