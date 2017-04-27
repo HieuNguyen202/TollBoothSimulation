@@ -6,18 +6,68 @@ import static toolboothsimulation.TollBoothTest.autoTollBooths;
 import static toolboothsimulation.TollBoothTest.manuTollBooths;
 
 public class ToolBoothSimulation {
-    public static int numManu=1;
-    public static int numAuto=5;
-    public static TollBooth[] autoTollBooths = new TollBooth[numAuto];
-    public static TollBooth[] manuTollBooths = new TollBooth[numManu];
+    public static int numManu;
+    public static int numAuto;
+    public static TollBooth[] autoTollBooths;
+    public static TollBooth[] manuTollBooths;
     public static TollBoothLine overflowVehicles = new TollBoothLine();
     public static TollBoothLine allVehicles = new TollBoothLine();
-    
+
     public static void main(String[] args) throws FileNotFoundException {
         double clock=0; // Keep time.
-        double simulationTime=12000;  //Total time the simulation will run on.
+        double simulationTime=15000;  //Total time the simulation will run on.
+        String fileName = "";
+        
+        //File name prompt
+        boolean continue_flag = false;
+        Scanner keyBoard = new Scanner(System.in);
+        System.out.print("Please enter the name of the file:");
+        while (!continue_flag) {
+            fileName = keyBoard.next();
+            if (new File(fileName).exists()) {
+                continue_flag = true;
+            } else {
+                System.out.print("Simulation can not find \"" + fileName + "\". Please enter a different file name: ");
+            }
+        }
+        
+        //Number of TollBooth prompt
+        do {
+            System.out.println("");
+            System.out.println("Please enter the number of automatic TollBooth and manual TollBooth.");
+            System.out.println("Remember! There must be at least one of each type and the total number");
+            System.out.println("of tollbooths must be equal to 6 tollbooths.");
+            System.out.println("");
+            //Number of Auto TollBooth prompt
+            continue_flag = false;
+            System.out.print("Please enter the number of automatic TollBooth:");
+            while (!continue_flag) {
+                try {
+                    numAuto = keyBoard.nextInt();
+                    continue_flag = true;
+                } catch (InputMismatchException e) {
+                    String garbage = keyBoard.nextLine();
+                    System.out.print("Error! Please enter the number of automatic TollBooth again:");
+                }
+            }
+
+            //Number of Manu TollBooth prompt
+            continue_flag = false;
+            System.out.print("Please enter the number of manual TollBooth:");
+            while (!continue_flag) {
+                try {
+                    numManu = keyBoard.nextInt();
+                    continue_flag = true;
+                } catch (InputMismatchException e) {
+                    String garbage = keyBoard.nextLine();
+                    System.out.print("Error! Please enter the number of manual TollBooth again:");
+                }
+            }
+        } while (!(numAuto>0 && numManu >0 && numAuto + numManu ==6));
         
         //create TollBooth arrays
+        autoTollBooths = new TollBooth[numAuto];
+        manuTollBooths = new TollBooth[numManu];
         for (int i = 0; i < numAuto; i++) {
             autoTollBooths[i]=new TollBooth();
         }
@@ -26,10 +76,12 @@ public class ToolBoothSimulation {
         }
         
         //Input from file
-        String filePath = "nonrushhour.txt";
-        Scanner scan = new Scanner(new File(filePath));
-        while (scan.hasNext()) {
-            StringTokenizer elements = new StringTokenizer(scan.nextLine(), ",");
+        System.out.println("");
+        System.out.println("Simulation is in progress!");
+        System.out.println("");
+        Scanner fileScanner = new Scanner(new File(fileName));
+        while (fileScanner.hasNext()) {
+            StringTokenizer elements = new StringTokenizer(fileScanner.nextLine(), ",");
             double arrivalTime = Double.parseDouble(elements.nextToken());
             String type = elements.nextToken();
             if (type.toLowerCase().equals("m")) {
@@ -39,8 +91,8 @@ public class ToolBoothSimulation {
                 allVehicles.addLast(new AutoVehicle(arrivalTime));
             }
         }
-        //System.out.println(allVehicles); //Uncomment this to see all vehicles in allVehicles.
-  
+        System.out.println(allVehicles); //Uncomment this to see all vehicles in allVehicles.
+
         //Time loop
         while(clock <=simulationTime)
         {
@@ -75,46 +127,53 @@ public class ToolBoothSimulation {
             leave(autoTollBooths,clock);
             leave(manuTollBooths,clock);
             
-            System.out.println("Clock: "+ clock);
+            //System.out.println("Clock: "+ clock);
             for (int i = 0; i < autoTollBooths.length; i++) {
-                System.out.println("Auto "+ (i+1) +" "+autoTollBooths[i]);
+                //System.out.println("Auto "+ (i+1) +" "+autoTollBooths[i]);
             }
             for (int i = 0; i < manuTollBooths.length; i++) {
-                System.out.println("Manu "+ (i+1) +" "+manuTollBooths[i]);
+                //System.out.println("Manu "+ (i+1) +" "+manuTollBooths[i]);
             }
-            
             clock++;
         }
+        
+        System.out.println("Simulation complete!");
+        System.out.println("");
+        System.out.println("Results:");
+        System.out.println("");
         //Output statistic
         double sumOfManuAverages=0;
         double sumOfAutoAverages=0;
         double maxManuWait=0;
         double maxAutoWait=0;
 
-        for (int i = 0; i < autoTollBooths.length; i++) {
-            System.out.println("Auto "+(i+1)+" maxLength: " + autoTollBooths[i].getMaxLength()); //Max length
-            sumOfAutoAverages+=autoTollBooths[i].getAverageWait(); //sumOfAutoAverages
-            if (maxAutoWait<autoTollBooths[i].getMaxWait()) {
-                maxAutoWait=autoTollBooths[i].getMaxWait(); //maxAutoWait
-            }
-        }
-        
+        //Max Length manual
         for (int i = 0; i < manuTollBooths.length; i++) {
-            System.out.println("Manu "+(i+1)+" maxLength: " + manuTollBooths[i].getMaxLength());//Max length
+            System.out.println("Manual Line #"+(i+1)+" Maximum Length=" + manuTollBooths[i].getMaxLength());//Max length
             sumOfManuAverages+=manuTollBooths[i].getAverageWait(); //sumOfManuAverages
             if (maxManuWait<manuTollBooths[i].getMaxWait()) {
                 maxManuWait=manuTollBooths[i].getMaxWait(); //maxManuWait
             }
         }
         
-        if (numAuto>0)
-            System.out.println("Auto average wait time: " + sumOfAutoAverages/numAuto);
+        //Max Length Automatic
+        for (int i = 0; i < autoTollBooths.length; i++) {
+            System.out.println("Automatic Line #"+(i+1)+" Maximum Length=" + autoTollBooths[i].getMaxLength()); //Max length
+            sumOfAutoAverages+=autoTollBooths[i].getAverageWait(); //sumOfAutoAverages
+            if (maxAutoWait<autoTollBooths[i].getMaxWait()) {
+                maxAutoWait=autoTollBooths[i].getMaxWait(); //maxAutoWait
+            }
+        }
+        //Wait data
+        System.out.println("Max Manual Wait: " + maxManuWait);
+        System.out.println("Max Auto Wait: " + maxAutoWait);
+                
         if (numManu>0)
-            System.out.println("Manu average wait time: " + sumOfManuAverages/numManu);
-        
-        System.out.println("Auto max wait time: " + maxAutoWait);
-        System.out.println("Manu max wait time: " + maxManuWait);
-        System.out.println("Number of overflow vehicles: "+overflowVehicles.length());
+            System.out.println("Avg Manual Wait: " + sumOfManuAverages/numManu);
+        if (numAuto>0)
+            System.out.println("Avg Auto Wait: " + sumOfAutoAverages/numAuto);
+
+        System.out.println("Number of overflown vehicles: "+overflowVehicles.length());
     }
     
     //INPUT: tollBooths - An array of TollBooth
