@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package toolboothsimulation;
 
 /**
  *
- * @author edwar
+ * This test program is meant to test TollBoothLine.java and DoneVehicle.java
  */
 public class TollBoothLineTest {
     public static void main(String[] args) {
@@ -47,6 +43,7 @@ public class TollBoothLineTest {
         System.out.println(line2);
         
         //transferTo of TollBoothLine uses removeFirst and addLast of its parent (LinkedList)
+        //test DoneVehicle
         line1.transferTo(line2);
         
         System.out.println("List 1 has " + line1.length()+" cars:");

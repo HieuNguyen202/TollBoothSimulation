@@ -2,7 +2,7 @@ package toolboothsimulation;
 
 import java.util.*;
 import java.io.*;
-
+//This is a lite version of the main. It usetilize all java class of this project
 public class TollBoothTest {
     public static int numManu=1;
     public static int numAuto=5;

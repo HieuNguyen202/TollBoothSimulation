@@ -1,4 +1,5 @@
 package toolboothsimulation;
+//This test program is meant to test Vehicle.java, AutoVehicle.java and ManuVehicle.java
 public class VehicleTest {
     public static void main(String[] args) {
         System.out.println("Car1:");

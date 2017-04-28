@@ -64,6 +64,7 @@ public class ToolBoothSimulation {
                 }
             }
         } while (!(numAuto>0 && numManu >0 && numAuto + numManu ==6));
+
         
         //create TollBooth arrays
         autoTollBooths = new TollBooth[numAuto];
@@ -91,7 +92,7 @@ public class ToolBoothSimulation {
                 allVehicles.addLast(new AutoVehicle(arrivalTime));
             }
         }
-        System.out.println(allVehicles); //Uncomment this to see all vehicles in allVehicles.
+        //System.out.println(allVehicles); //Uncomment this to see all vehicles in allVehicles.
 
         //Time loop
         while(clock <=simulationTime)
